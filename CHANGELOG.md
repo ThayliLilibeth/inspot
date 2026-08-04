@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Repository governance: `CHANGELOG.md`, `VERSION`, `LICENSE`, `SECURITY.md`, `CODEOWNERS`.
+- EPIC-001 — Identity & Authentication design spec (`docs/features/EPIC-001-identity-auth.md`),
+  pending approval before implementation.
 
 ## [0.1.0] - 2026-08-04
 

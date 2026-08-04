@@ -1,0 +1,60 @@
+// InSpot backend — Prisma schema.
+// Scope: Auth/User entities only (Identity module skeleton), per TEC-001 §3/§5/§6 and DEC-011.
+// HotSpot/Discovery/Matching/Chat/Safety/Business tables are added when each of those modules
+// gets its own approved Sprint — see docs/backlog.md.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum VerificationStatus {
+  UNVERIFIED
+  PARTIAL
+  VERIFIED
+  REJECTED
+}
+
+enum VerificationStepStatus {
+  NONE
+  PENDING
+  PASSED
+  FAILED
+  MANUAL_REVIEW
+}
+
+model User {
+  id                 String              @id @default(uuid()) @db.Uuid
+  firebaseUid        String              @unique @map("firebase_uid")
+  email              String?             @unique
+  phone              String?             @unique
+  displayName        String?             @map("display_name")
+  verificationStatus VerificationStatus  @default(UNVERIFIED) @map("verification_status")
+  createdAt          DateTime            @default(now()) @map("created_at")
+  updatedAt          DateTime            @updatedAt @map("updated_at")
+
+  verification       Verification?
+
+  @@map("users")
+}
+
+model Verification {
+  id             String                  @id @default(uuid()) @db.Uuid
+  userId         String                  @unique @map("user_id") @db.Uuid
+  user           User                    @relation(fields: [userId], references: [id])
+  emailVerified  Boolean                 @default(false) @map("email_verified")
+  phoneVerified  Boolean                 @default(false) @map("phone_verified")
+  selfieStatus   VerificationStepStatus  @default(NONE) @map("selfie_status")
+  livenessStatus VerificationStepStatus  @default(NONE) @map("liveness_status")
+  provider       String                  @default("inhouse_mvp")
+  overallStatus  VerificationStatus      @default(UNVERIFIED) @map("overall_status")
+  reviewedBy     String?                 @map("reviewed_by") @db.Uuid
+  createdAt      DateTime                @default(now()) @map("created_at")
+  updatedAt      DateTime                @updatedAt @map("updated_at")
+
+  @@map("verifications")
+}

@@ -2,5 +2,8 @@
 
 Per DEC-011, anything identified during development that is a good idea but not in the current Sprint's approved scope gets logged here instead of implemented speculatively. Founder review before promoting any item into a Sprint.
 
-| Date | Idea | Why postponed | Revisit when |
-|---|---|---|---|
+| Date       | Idea                                                                                | Why postponed                                                                                                                                                              | Revisit when                                                                           |
+| ---------- | ----------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| 2026-08-04 | GeoRepository (DEC-003) PostGIS implementation                                      | Belongs to the HotSpot module, which isn't scaffolded yet (DEC-011)                                                                                                        | HotSpot module's own Sprint is planned and approved                                    |
+| 2026-08-04 | apps/mobile native `ios/`/`android/` projects + dev/staging/prod flavors            | Flutter/Dart SDK isn't installed in the environment that scaffolded Flutter Foundation; `flutter create` is needed to generate correct native projects, not hand-authoring | Flutter SDK is available (dev machine or CI) — run `flutter create .` in `apps/mobile` |
+| 2026-08-04 | Backend `FeatureFlagsModule` + Flutter `featureFlagsProvider` fetch logic (DEC-010) | No approved feature yet needs a flag; avoids plumbing a fetch path with nothing to gate                                                                                    | First feature that needs gradual rollout/kill-switch is approved                       |

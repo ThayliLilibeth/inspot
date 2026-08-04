@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [develop, main]
+  push:
+    branches: [develop, main]
+
+jobs:
+  api:
+    name: API — lint, format, test, build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: ".nvmrc"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Lint
+        run: pnpm --filter @inspot/api lint
+
+      - name: Format check
+        run: pnpm --filter @inspot/api format:check
+
+      - name: Generate Prisma client
+        run: pnpm --filter @inspot/api exec prisma generate
+
+      - name: Test
+        run: pnpm --filter @inspot/api test
+
+      - name: Build
+        run: pnpm --filter @inspot/api build
+
+  # Admin (Next.js) and Mobile (Flutter) jobs are added additively once those apps have
+  # real build/test scripts — see Sprint 1's Admin Dashboard and Flutter Foundation chunks.

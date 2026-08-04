@@ -1,0 +1,53 @@
+# --- Environment ---
+.env
+.env.*
+!.env.example
+
+# --- Node / pnpm ---
+node_modules/
+dist/
+build/
+.pnpm-store/
+coverage/
+*.tsbuildinfo
+.turbo/
+
+# --- NestJS (apps/api) ---
+apps/api/dist/
+
+# --- Next.js (apps/admin) ---
+apps/admin/.next/
+apps/admin/out/
+
+# --- Flutter (apps/mobile) ---
+apps/mobile/.dart_tool/
+apps/mobile/.flutter-plugins
+apps/mobile/.flutter-plugins-dependencies
+apps/mobile/.packages
+apps/mobile/build/
+apps/mobile/ios/Pods/
+apps/mobile/ios/.symlinks/
+apps/mobile/ios/Flutter/Flutter.framework
+apps/mobile/android/.gradle/
+apps/mobile/android/local.properties
+apps/mobile/**/*.g.dart
+apps/mobile/**/*.freezed.dart
+
+# --- Firebase ---
+**/google-services.json
+**/GoogleService-Info.plist
+firebase-debug.log
+
+# --- IDE ---
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.iml
+
+# --- OS ---
+.DS_Store
+Thumbs.db
+
+# --- Logs ---
+*.log
+logs/
